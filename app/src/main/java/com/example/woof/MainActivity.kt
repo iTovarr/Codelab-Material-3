@@ -41,11 +41,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.layout.ContentScale
 import com.example.woof.data.Dog
 import com.example.woof.data.dogs
 import com.example.woof.ui.theme.WoofTheme
@@ -63,14 +63,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun WoofDarkThemePreview() {
-    WoofTheme(darkTheme = true) {
-        WoofApp()
     }
 }
 
@@ -95,31 +87,6 @@ fun WoofApp() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun WoofTopAppBar(modifier: Modifier = Modifier) {
-    CenterAlignedTopAppBar(
-        title = {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    modifier = Modifier
-                        .size(dimensionResource(id = R.dimen.image_size))
-                        .padding(dimensionResource(id = R.dimen.padding_small)),
-                    painter = painterResource(R.drawable.ic_woof_logo),
-                    contentDescription = null
-                )
-                Text(
-                    text = stringResource(R.string.app_name),
-                    style = MaterialTheme.typography.displayLarge
-                )
-            }
-        },
-        modifier = modifier
-    )
-}
-
 /**
  * Composable that displays a list item containing a dog icon and their information.
  *
@@ -131,16 +98,48 @@ fun DogItem(
     dog: Dog,
     modifier: Modifier = Modifier
 ) {
-    Card(modifier = modifier) {
+    Card(
+        modifier = modifier
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(dimensionResource(id = R.dimen.padding_small))
+                .padding(dimensionResource(R.dimen.padding_small))
         ) {
             DogIcon(dog.imageResourceId)
             DogInformation(dog.name, dog.age)
         }
     }
+}
+
+/**
+ * Composable that displays a Top Bar with an icon and text.
+ *
+ * @param modifier modifiers to set to this composable
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WoofTopAppBar(modifier: Modifier = Modifier) {
+    CenterAlignedTopAppBar(
+        title = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    modifier = Modifier
+                        .size(dimensionResource(R.dimen.image_size))
+                        .padding(dimensionResource(R.dimen.padding_small)),
+                    painter = painterResource(R.drawable.ic_woof_logo),
+                    contentDescription = null
+                )
+                Text(
+                    text = stringResource(R.string.app_name),
+                    style = MaterialTheme.typography.displayLarge
+                )
+            }
+        },
+        modifier = modifier
+    )
 }
 
 /**
@@ -185,13 +184,11 @@ fun DogInformation(
     Column(modifier = modifier) {
         Text(
             text = stringResource(dogName),
-            // Aplicamos displayMedium para el nombre
             style = MaterialTheme.typography.displayMedium,
-            modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small))
+            modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small))
         )
         Text(
             text = stringResource(R.string.years_old, dogAge),
-            // Aplicamos bodyLarge para la edad
             style = MaterialTheme.typography.bodyLarge
         )
     }
@@ -204,6 +201,17 @@ fun DogInformation(
 @Composable
 fun WoofPreview() {
     WoofTheme(darkTheme = false) {
+        WoofApp()
+    }
+}
+
+/**
+ * Composable that displays what the UI of the app looks like in dark theme in the design tab.
+ */
+@Preview
+@Composable
+fun WoofDarkThemePreview() {
+    WoofTheme(darkTheme = true) {
         WoofApp()
     }
 }
