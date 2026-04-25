@@ -108,7 +108,6 @@ fun WoofTopAppBar(modifier: Modifier = Modifier) {
                         .size(dimensionResource(id = R.dimen.image_size))
                         .padding(dimensionResource(id = R.dimen.padding_small)),
                     painter = painterResource(R.drawable.ic_woof_logo),
-
                     contentDescription = null
                 )
                 Text(
