@@ -60,6 +60,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Preview
+@Composable
+fun WoofDarkThemePreview() {
+    WoofTheme(darkTheme = true) {
+        WoofApp()
+    }
+}
+
 /**
  * Composable that displays an app bar and a list of dogs.
  */
